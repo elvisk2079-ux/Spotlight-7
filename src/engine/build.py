@@ -36,7 +36,7 @@ page=f'''<!doctype html>
     <div class="board" id="board"></div>
     <div class="board-foot">
       <span>Прогресс сохраняется в этом браузере.</span>
-      <button class="btn small" type="button" id="reset-all">Reset my progress</button>
+      <button class="btn small" type="button" id="reset-all">Сбросить прогресс</button>
     </div>
   </section>
 </main>
