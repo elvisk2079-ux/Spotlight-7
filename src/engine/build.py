@@ -1,7 +1,7 @@
 import sys, re, html, os
 base=os.path.dirname(os.path.abspath(__file__))
 src=open(sys.argv[1]).read(); out=sys.argv[2]
-meta={k:v.strip() for k,v in re.findall(r'^// (TITLE|EYEBROW|SUB|BOARD): (.*)$',src,re.M)}
+meta={k:v.strip() for k,v in re.findall(r'^// (TITLE|EYEBROW|SUB|BOARD|LEAD|HOME): (.*)$',src,re.M)}
 css=open(os.path.join(base,'style.css')).read()
 eng=open(os.path.join(base,'engine.js')).read()
 e=html.escape
@@ -14,6 +14,7 @@ page=f'''<!doctype html>
 {css}</style>
 
 <header class="hero wrap">
+  {f'<a class="home" href="{e(meta["HOME"])}">← Все темы</a>' if meta.get("HOME") else ''}
   <p class="eyebrow">{e(meta["EYEBROW"])}</p>
   <h1>{e(meta["TITLE"])}</h1>
   <p class="sub">{e(meta["SUB"])}</p>
@@ -32,7 +33,7 @@ page=f'''<!doctype html>
 <main class="wrap" id="main">
   <section id="board-sec">
     <h2>{e(meta.get('BOARD','Твои слова'))}</h2>
-    <p class="lead">Каждый правильный ответ — одна точка. Все точки зелёные — слово выучено. Красная рамка — повтори это слово.</p>
+    <p class="lead">{e(meta.get('LEAD','Каждый правильный ответ — одна точка. Все точки зелёные — слово выучено. Красная рамка — повтори это слово.'))}</p>
     <div class="board" id="board"></div>
     <div class="board-foot">
       <span>Прогресс сохраняется в этом браузере.</span>

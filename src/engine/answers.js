@@ -4,7 +4,7 @@ for (const f of process.argv.slice(2)){
   const d=dom.window.document; let fails=[];
   d.querySelectorAll('article.ex').forEach(ex=>{
     const btns=[...ex.querySelectorAll('.foot .btn')];
-    const show=btns.find(b=>b.textContent==='Show answers'), check=btns.find(b=>b.textContent==='Check');
+    const show=btns.find(b=>['Show answers','Показать ответы'].includes(b.textContent)), check=btns.find(b=>['Check','Проверить'].includes(b.textContent));
     if(!show||!check) return;
     show.click();
     ex.querySelectorAll('input.gap').forEach(i=>i.classList.remove('shown'));

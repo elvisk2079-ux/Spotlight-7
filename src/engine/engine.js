@@ -49,6 +49,12 @@ function card(num, def) {
   const score = el("span", "score");
   head.append(h3, score);
   ex.append(head, el("p", "instr", def.instr));
+  if (def.pic || def.story) {
+    const st = el("div", "story-head");
+    if (def.pic) st.append(el("span", "pic", def.pic));
+    if (def.story) st.append(el("b", "story-t", def.story));
+    ex.append(st);
+  }
   if (def.bank) {
     const bank = el("div", "bank");
     def.bank.forEach(w => bank.append(el("span", null, w)));
@@ -65,7 +71,7 @@ function card(num, def) {
   document.getElementById("nav").append(a);
   return { body, foot, score, total: 0, ok: 0, def };
 }
-const setScore = d => { d.score.textContent = `${d.ok} / ${d.total}`; d.score.classList.toggle("done", d.total > 0 && d.ok === d.total); };
+const setScore = d => { d.score.hidden = !d.total; d.score.textContent = `${d.ok} / ${d.total}`; d.score.classList.toggle("done", d.total > 0 && d.ok === d.total); };
 function resetBtn(d, build) {
   const r = el("button", "btn", "Начать заново");
   r.type = "button";
@@ -76,7 +82,7 @@ function splitId(spec, fallback) {
   const i = spec.lastIndexOf("#");
   return i > -1 ? [spec.slice(0, i), spec.slice(i + 1)] : [spec, fallback];
 }
-function options(list, correctSet, id, d, shuf) {
+function options(list, correctSet, id, d, shuf, onOk) {
   reg(id);
   const wrap = el("span", "choice");
   let done = false;
@@ -90,6 +96,7 @@ function options(list, correctSet, id, d, shuf) {
         b.classList.add("ok");
         wrap.querySelectorAll(".opt").forEach(x => { if (x !== b) { x.classList.add("dim"); x.disabled = true; } });
         d.ok++; setScore(d); hit(id, true);
+        if (onOk) onOk();
       } else {
         b.classList.add("bad", "shake");
         b.disabled = true;
@@ -178,9 +185,11 @@ const RENDER = {
       const li = el("li");
       li.append(el("p", "q", it.q));
       const box = el("div", "mcq");
-      box.append(options([...it.o], [it.o[0]], it.id, d, true));
+      const why = el("p", "fix ok"); why.hidden = true;
+      if (it.why) why.append("✓ ", it.why);
+      box.append(options([...it.o], [it.o[0]], it.id, d, true, () => { if (it.why) why.hidden = false; }));
       d.total++;
-      li.append(box);
+      li.append(box, why);
       ol.append(li);
     });
     d.body.append(ol);
@@ -226,6 +235,7 @@ const RENDER = {
           fb.innerHTML = "";
           if (it.ok) fb.append(correct ? "Да, верно." : "Это было верно.");
           else fb.append(correct ? "Да! Правильно: " : "Здесь ошибка. Правильно: ", el("b", null, it.fix));
+          if (it.why) fb.append(el("span", "why", " " + it.why));
           if (correct) { d.ok++; setScore(d); }
           hit(it.id, correct);
         });
@@ -495,6 +505,57 @@ RENDER.listen = function (d) {
   d.body.append(ol);
 };
 
+/* ===== Grammar: rule sheet and sort-into-baskets ===== */
+RENDER.rule = function (d) {
+  const box = el("div", "rule");
+  d.def.blocks.forEach(bl => {
+    const b = el("div", "rule-b" + (bl.warn ? " warn" : ""));
+    b.append(el("h4", null, bl.h));
+    bl.lines.forEach(ln => {
+      const row = el("p", "rule-l");
+      if (Array.isArray(ln)) {
+        const en = el("span", "rule-en"); en.innerHTML = ln[0].replace(/\*(.+?)\*/g, "<mark>$1</mark>");
+        row.append(en);
+        if (ln[1]) row.append(el("span", "rule-ru", ln[1]));
+      } else row.append(ln);
+      b.append(row);
+    });
+    box.append(b);
+  });
+  d.body.append(box);
+  d.foot.hidden = true;
+};
+RENDER.sort = function (d) {
+  const bk = d.def.buckets;
+  const ol = el("ol", "items");
+  shuffle(d.def.items).forEach(it => {
+    d.total++; reg(it.id);
+    const li = el("li");
+    li.append(el("p", "tf-line", it.t));
+    const btns = el("div", "tf-btns sort-btns");
+    const fb = el("p", "fix"); fb.hidden = true;
+    let done = false;
+    bk.forEach((label, i) => {
+      const b = el("button", "opt", label); b.type = "button";
+      b.addEventListener("click", () => {
+        if (done || b.disabled) return;
+        if (i === it.b) {
+          done = true; b.classList.add("ok");
+          btns.querySelectorAll(".opt").forEach(x => { if (x !== b) { x.classList.add("dim"); x.disabled = true; } });
+          d.ok++; setScore(d); hit(it.id, true);
+          if (it.why) { fb.hidden = false; fb.className = "fix ok"; fb.textContent = "✓ " + it.why; }
+        } else {
+          b.classList.add("bad", "shake"); b.disabled = true; hit(it.id, false);
+          if (it.why) { fb.hidden = false; fb.className = "fix bad"; fb.textContent = "Подсказка: " + it.why; }
+        }
+      });
+      btns.append(b);
+    });
+    li.append(btns, fb); ol.append(li);
+  });
+  d.body.append(ol);
+};
+
 function startDrill(num, def) {
   const d = card(num, def);
   d.num = num;
@@ -512,7 +573,7 @@ document.getElementById("reset-all").addEventListener("click", e => {
   if (b.dataset.armed) { M = {}; save(); renderBoard(); b.textContent = "Сбросить прогресс"; delete b.dataset.armed; }
   else { b.dataset.armed = "1"; b.textContent = "Нажми ещё раз для сброса"; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = "Сбросить прогресс"; } }, 3000); }
 });
-const boardLink = el("a", null, "Слова"); boardLink.href = "#board-sec";
+const boardLink = el("a", null, META.boardLabel || "Слова"); boardLink.href = "#board-sec";
 document.getElementById("nav").append(boardLink);
 const CARDS = { type: "cards", title: "Карточки", short: "Карточки",
   instr: "Посмотри на слово и вспомни перевод. Нажми на карточку, чтобы перевернуть, 🔊 — послушать. Потом нажми «Знаю» или «Ещё раз» — эти карточки вернутся в конце." };

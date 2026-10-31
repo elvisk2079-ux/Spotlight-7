@@ -40,6 +40,7 @@ page = f'''<!doctype html>
 .t b {{ font-weight: 600; }}
 .s {{ font-size: 14px; color: var(--muted); }}
 .go {{ color: var(--muted); transition: transform .15s; }}
+a.gram {{ margin-top: 8px; border-color: var(--accent); background: var(--accent-soft); }}
 .how {{ background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-top: 30px; }}
 .how h3 {{ margin: 0 0 8px; font-size: 17px; }}
 .how ol {{ margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 4px; }}
@@ -52,6 +53,11 @@ page = f'''<!doctype html>
   <p class="sub">Новые слова из каждого упражнения учебника: карточки с переводом и озвучкой, потом семь заданий, чтобы слова запомнились.</p>
 </header>
 <main class="wrap" style="padding-block: 0 64px;">
+  <a class="row gram" href="grammar/index.html">
+    <span class="n">GR</span>
+    <span class="t"><b>Spotlight 7 Grammar</b><span class="s">Вся грамматика учебника по модулям: правила, истории, тренировка</span></span>
+    <span class="go" aria-hidden="true">→</span>
+  </a>
   {body}
   <div class="how">
     <h3>Как заниматься</h3>
