@@ -170,3 +170,14 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 .fc-done p { font-weight: 600; margin: 8px 0 10px; }
 .btn.know:hover { color: #fff; filter: brightness(1.08); border-color: #2e9e5b; }
 .btn.again:hover { color: #d9822b; border-color: #d9822b; background: rgba(217,130,43,.08); }
+.match { margin-bottom: 14px; }
+.match-n { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.match-col { display: flex; flex-direction: column; gap: 6px; }
+.opt.pair { border-radius: 8px; padding: 8px 10px; text-align: center; min-height: 44px; }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.listen-q { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.listen-word { font-size: 18px; }
+.match-cols { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+.board { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }

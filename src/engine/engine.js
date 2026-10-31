@@ -45,7 +45,7 @@ function card(num, def) {
   const ex = el("article", "ex");
   const head = el("div", "ex-head");
   const h3 = el("h3");
-  h3.append(el("span", "num", `Drill ${num}`), def.title);
+  h3.append(el("span", "num", `Задание ${num}`), def.title);
   const score = el("span", "score");
   head.append(h3, score);
   ex.append(head, el("p", "instr", def.instr));
@@ -67,7 +67,7 @@ function card(num, def) {
 }
 const setScore = d => { d.score.textContent = `${d.ok} / ${d.total}`; d.score.classList.toggle("done", d.total > 0 && d.ok === d.total); };
 function resetBtn(d, build) {
-  const r = el("button", "btn", "Start again");
+  const r = el("button", "btn", "Начать заново");
   r.type = "button";
   r.addEventListener("click", () => { d.body.innerHTML = ""; d.foot.innerHTML = ""; build(); });
   d.foot.append(r);
@@ -165,8 +165,8 @@ const RENDER = {
       d.body.append(ol);
     }
     if (gaps.length) {
-      const c = el("button", "btn primary", "Check"); c.type = "button"; c.addEventListener("click", d.check);
-      const s = el("button", "btn", "Show answers"); s.type = "button";
+      const c = el("button", "btn primary", "Проверить"); c.type = "button"; c.addEventListener("click", d.check);
+      const s = el("button", "btn", "Показать ответы"); s.type = "button";
       s.addEventListener("click", () => gaps.forEach(g => { if (!g.ok) { g.inp.value = g.show; g.inp.classList.remove("bad"); g.inp.classList.add("shown"); } }));
       d.foot.append(c, s);
     }
@@ -212,7 +212,7 @@ const RENDER = {
       const btns = el("div", "tf-btns");
       const fb = el("p", "fix"); fb.hidden = true;
       let done = false;
-      [["Right", true], ["Wrong", false]].forEach(([label, val]) => {
+      [["Верно", true], ["Неверно", false]].forEach(([label, val]) => {
         const b = el("button", "opt", label);
         b.type = "button";
         b.addEventListener("click", () => {
@@ -224,8 +224,8 @@ const RENDER = {
           fb.hidden = false;
           fb.className = "fix " + (correct ? "ok" : "bad");
           fb.innerHTML = "";
-          if (it.ok) fb.append(correct ? "Yes, that's correct." : "It was correct.");
-          else fb.append(correct ? "Yes! Correct version: " : "It was wrong. Correct version: ", el("b", null, it.fix));
+          if (it.ok) fb.append(correct ? "Да, верно." : "Это было верно.");
+          else fb.append(correct ? "Да! Правильно: " : "Здесь ошибка. Правильно: ", el("b", null, it.fix));
           if (correct) { d.ok++; setScore(d); }
           hit(it.id, correct);
         });
@@ -264,8 +264,8 @@ const RENDER = {
       if (order.join(" ") === it.s && target.length > 1) order = [...order.slice(1), order[0]];
       order.forEach(w => pool.append(mk(w)));
       const controls = el("div", "line");
-      const c = el("button", "btn small primary", "Check"); c.type = "button";
-      const sh = el("button", "btn small", "Show answer"); sh.type = "button";
+      const c = el("button", "btn small primary", "Проверить"); c.type = "button";
+      const sh = el("button", "btn small", "Показать ответ"); sh.type = "button";
       c.addEventListener("click", () => {
         if (solved) return;
         const built = [...line.children].map(x => x.textContent).join(" ");
@@ -273,16 +273,16 @@ const RENDER = {
         fb.hidden = false;
         const alts = [it.s, ...(it.alt || [])];
         if (alts.includes(built)) {
-          solved = true; line.classList.add("ok"); fb.className = "fix ok"; fb.textContent = "Correct!";
+          solved = true; line.classList.add("ok"); fb.className = "fix ok"; fb.textContent = "Правильно!";
           d.ok++; setScore(d); hit(it.id, true);
         } else if (pool.children.length) {
-          fb.className = "fix bad"; fb.textContent = "Use all the words.";
+          fb.className = "fix bad"; fb.textContent = "Используй все карточки.";
         } else {
-          line.classList.add("bad"); fb.className = "fix bad"; fb.textContent = "Not quite. Tap words to move them and try again.";
+          line.classList.add("bad"); fb.className = "fix bad"; fb.textContent = "Не совсем. Нажимай на слова, чтобы переставить, и попробуй ещё раз.";
           hit(it.id, false);
         }
       });
-      sh.addEventListener("click", () => { fb.hidden = false; fb.className = "fix"; fb.innerHTML = ""; fb.append("Answer: ", el("b", null, it.s)); });
+      sh.addEventListener("click", () => { fb.hidden = false; fb.className = "fix"; fb.innerHTML = ""; fb.append("Ответ: ", el("b", null, it.s)); });
       controls.append(c, sh);
       wrap.append(line, pool, controls, fb);
       li.append(wrap);
@@ -298,10 +298,10 @@ const RENDER = {
       const li = el("li");
       li.append(el("p", "ru-line", it.ru));
       const ta = el("textarea");
-      ta.id = `t${d.num}-${i}`; ta.rows = 1; ta.placeholder = "Type in English…"; ta.setAttribute("aria-label", "Your translation");
+      ta.id = `t${d.num}-${i}`; ta.rows = 1; ta.placeholder = "Напиши по-английски…"; ta.setAttribute("aria-label", "Your translation");
       const line = el("div", "line");
-      const c = el("button", "btn small primary", "Check"); c.type = "button";
-      const sh = el("button", "btn small", "Show model"); sh.type = "button";
+      const c = el("button", "btn small primary", "Проверить"); c.type = "button";
+      const sh = el("button", "btn small", "Показать ответ"); sh.type = "button";
       const model = el("p", "model"); model.hidden = true;
       let solved = false;
       const re = new RegExp(`(^|[^a-z'])(${it.key})($|[^a-z'])`, "i");
@@ -312,17 +312,17 @@ const RENDER = {
         model.hidden = false; model.innerHTML = "";
         if (re.test(v)) {
           solved = true; ta.classList.add("ok"); ta.readOnly = true;
-          model.append("Correct. Model: ", el("b", null, it.en));
+          model.append("Правильно! Ответ: ", el("b", null, it.en));
           d.ok++; setScore(d); hit(it.id, true);
         } else {
           ta.classList.add("bad");
-          model.append("Use ", el("b", null, it.hint || (byId[it.id] ? byId[it.id].phrase : "the target phrase")), ". Try again.");
+          model.append("Нужно слово: ", el("b", null, it.hint || (byId[it.id] ? byId[it.id].phrase : "the target phrase")), ". Попробуй ещё раз.");
           hit(it.id, false);
         }
       };
       c.addEventListener("click", check);
       ta.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); check(); } });
-      sh.addEventListener("click", () => { model.hidden = false; model.innerHTML = ""; model.append("Model: ", el("b", null, it.en)); });
+      sh.addEventListener("click", () => { model.hidden = false; model.innerHTML = ""; model.append("Ответ: ", el("b", null, it.en)); });
       line.append(c, sh);
       li.append(ta, line, model);
       ol.append(li);
@@ -364,7 +364,7 @@ RENDER.cards = function (d) {
   const box = el("div", "fc");
   const tools = el("div", "fc-tools");
   const mk = (txt, title) => { const b = el("button", "btn ghost", txt); b.type = "button"; if (title) b.title = title; return b; };
-  const bShuf = mk("Shuffle"), bDir = mk("Russian first"), bAuto = mk("Auto-sound: off");
+  const bShuf = mk("Перемешать"), bDir = mk("Сначала русский"), bAuto = mk("Автозвук: выкл");
   tools.append(bShuf, bDir);
   if (HAS_TTS) tools.append(bAuto);
   const flip = el("div", "flip"); flip.tabIndex = 0; flip.setAttribute("role", "button");
@@ -376,7 +376,7 @@ RENDER.cards = function (d) {
   bPrev.setAttribute("aria-label", "previous"); bNext.setAttribute("aria-label", "next");
   nav.append(bPrev, count, bNext);
   const rate = el("div", "fc-rate");
-  const bAgain = el("button", "btn again", "Again · Ещё раз"), bKnow = el("button", "btn know", "I know it · Знаю");
+  const bAgain = el("button", "btn again", "Ещё раз"), bKnow = el("button", "btn know", "Знаю ✓");
   bAgain.type = bKnow.type = "button";
   rate.append(bAgain, bKnow);
   const done = el("div", "fc-done");
@@ -396,15 +396,15 @@ RENDER.cards = function (d) {
       node.append(el("div", "fc-ru", p.ru));
       if (p.en) node.append(el("div", "fc-def", p.en));
     }
-    node.append(el("div", "fc-hint", "tap to flip"));
+    node.append(el("div", "fc-hint", "нажми, чтобы перевернуть"));
   };
   function show() {
     done.innerHTML = "";
     const left = deck.length > 0;
     [flip, nav, rate].forEach(x => x.hidden = !left);
     if (!left) {
-      done.append(el("p", null, `All ${P.length} cards done! Now go to Drill 2.`));
-      const r = mk("Go through the cards again"); r.addEventListener("click", () => { deck = P.map(p => p.id); known = 0; d.ok = 0; setScore(d); pos = 0; show(); });
+      done.append(el("p", null, `Все ${P.length} карточек пройдены! Теперь переходи к заданию 2.`));
+      const r = mk("Пройти карточки ещё раз"); r.addEventListener("click", () => { deck = P.map(p => p.id); known = 0; d.ok = 0; setScore(d); pos = 0; show(); });
       done.append(r);
       return;
     }
@@ -428,11 +428,71 @@ RENDER.cards = function (d) {
   bPrev.addEventListener("click", () => { pos--; show(); });
   bNext.addEventListener("click", () => { pos++; show(); });
   bShuf.addEventListener("click", () => { deck = shuffle(deck); pos = 0; show(); });
-  bDir.addEventListener("click", () => { ruFirst = !ruFirst; bDir.textContent = ruFirst ? "English first" : "Russian first"; show(); });
-  bAuto.addEventListener("click", () => { auto = !auto; bAuto.textContent = `Auto-sound: ${auto ? "on" : "off"}`; if (auto) show(); });
+  bDir.addEventListener("click", () => { ruFirst = !ruFirst; bDir.textContent = ruFirst ? "Сначала английский" : "Сначала русский"; show(); });
+  bAuto.addEventListener("click", () => { auto = !auto; bAuto.textContent = `Автозвук: ${auto ? "вкл" : "выкл"}`; if (auto) show(); });
   bKnow.addEventListener("click", () => { deck.splice(pos, 1); known++; d.ok = known; setScore(d); show(); });
   bAgain.addEventListener("click", () => { const id = deck.splice(pos, 1)[0]; deck.push(id); if (pos >= deck.length - 1 && deck.length > 1) pos = deck.length - 1; show(); });
   show();
+};
+
+
+/* ===== Beginner drills: match pairs, listen and choose ===== */
+RENDER.match = function (d) {
+  const ids = d.def.ids || P.map(p => p.id);
+  const size = d.def.size || 6;
+  const groups = [];
+  const sh = shuffle(ids);
+  for (let i = 0; i < sh.length; i += size) groups.push(sh.slice(i, i + size));
+  if (groups.length > 1 && groups[groups.length - 1].length < 3) { const last = groups.pop(); groups[groups.length - 1].push(...last); }
+  groups.forEach((g, gi) => {
+    const box = el("div", "match");
+    if (groups.length > 1) box.append(el("p", "match-n", `Часть ${gi + 1} из ${groups.length}`));
+    const cols = el("div", "match-cols");
+    const L = el("div", "match-col"), Rc = el("div", "match-col");
+    let sel = null;
+    const mkb = (id, txt, side) => {
+      const b = el("button", "opt pair", txt); b.type = "button"; b.dataset.id = id; b.dataset.side = side;
+      b.addEventListener("click", () => {
+        if (b.disabled) return;
+        if (!sel || sel.dataset.side === side) { if (sel) sel.classList.remove("sel"); sel = b; b.classList.add("sel"); return; }
+        const a = sel; sel = null; a.classList.remove("sel");
+        if (a.dataset.id === b.dataset.id) {
+          [a, b].forEach(x => { x.classList.add("ok"); x.disabled = true; });
+          d.ok++; setScore(d); hit(id, true);
+        } else {
+          [a, b].forEach(x => { x.classList.remove("shake"); void x.offsetWidth; x.classList.add("shake", "wrong"); setTimeout(() => x.classList.remove("wrong"), 600); });
+          hit(a.dataset.side === "en" ? a.dataset.id : b.dataset.id, false);
+        }
+      });
+      return b;
+    };
+    shuffle(g).forEach(id => { reg(id); d.total++; L.append(mkb(id, byId[id].phrase, "en")); });
+    shuffle(g).forEach(id => Rc.append(mkb(id, byId[id].ru, "ru")));
+    cols.append(L, Rc); box.append(cols); d.body.append(box);
+  });
+};
+RENDER.listen = function (d) {
+  const ol = el("ol", "items");
+  const pool = d.def.ids ? P.filter(p => d.def.ids.includes(p.id)) : P;
+  shuffle(pool).forEach(p => {
+    const li = el("li");
+    const q = el("div", "listen-q");
+    if (HAS_TTS) {
+      const s = el("button", "speak", "🔊"); s.type = "button"; s.setAttribute("aria-label", "слушать");
+      s.addEventListener("click", () => speak(sayText(p)));
+      q.append(s);
+      const w = el("button", "btn small ghost", "показать слово"); w.type = "button";
+      w.addEventListener("click", () => { w.replaceWith(el("b", "listen-word", p.phrase)); });
+      q.append(w);
+    } else q.append(el("b", "listen-word", p.phrase));
+    li.append(q);
+    const others = [...new Set(shuffle(pool.filter(x => x.id !== p.id)).map(x => x.ru))].filter(t => t !== p.ru).slice(0, 3);
+    const box = el("div", "mcq");
+    box.append(options([p.ru, ...others], [p.ru], p.id, d, true));
+    d.total++;
+    li.append(box); ol.append(li);
+  });
+  d.body.append(ol);
 };
 
 function startDrill(num, def) {
@@ -449,13 +509,13 @@ function startDrill(num, def) {
 
 document.getElementById("reset-all").addEventListener("click", e => {
   const b = e.currentTarget;
-  if (b.dataset.armed) { M = {}; save(); renderBoard(); b.textContent = "Reset my progress"; delete b.dataset.armed; }
-  else { b.dataset.armed = "1"; b.textContent = "Tap again to reset"; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = "Reset my progress"; } }, 3000); }
+  if (b.dataset.armed) { M = {}; save(); renderBoard(); b.textContent = "Сбросить прогресс"; delete b.dataset.armed; }
+  else { b.dataset.armed = "1"; b.textContent = "Нажми ещё раз для сброса"; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = "Сбросить прогресс"; } }, 3000); }
 });
-const boardLink = el("a", null, "Words"); boardLink.href = "#board-sec";
+const boardLink = el("a", null, "Слова"); boardLink.href = "#board-sec";
 document.getElementById("nav").append(boardLink);
-const CARDS = { type: "cards", title: "Flashcards", short: "Cards",
-  instr: "Look at the card and say what it means. Tap the card to flip it, 🔊 to listen. Then tap “I know it” or “Again” – the “Again” cards come back at the end. (Посмотри на карточку, вспомни перевод, переверни.)" };
+const CARDS = { type: "cards", title: "Карточки", short: "Карточки",
+  instr: "Посмотри на слово и вспомни перевод. Нажми на карточку, чтобы перевернуть, 🔊 — послушать. Потом нажми «Знаю» или «Ещё раз» — эти карточки вернутся в конце." };
 (META.cards === false ? DRILLS : [CARDS, ...DRILLS]).forEach((def, i) => startDrill(i + 1, def));
 COUNTING = false;
 renderBoard();
