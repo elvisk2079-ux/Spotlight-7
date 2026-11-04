@@ -200,3 +200,7 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 .home { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
 .fc-past { font-size: 16px; color: var(--muted); margin-top: -4px; }
 .chip .past { font-size: 12.5px; color: var(--accent); line-height: 1.3; }
+.pic svg { display: block; width: 100%; height: 100%; }
+.fc-pic { width: 150px; height: 200px; }
+.flip.has-pic .flip-in { min-height: 380px; }
+.q-pic { width: 120px; height: 160px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 6px; padding: 2px; }

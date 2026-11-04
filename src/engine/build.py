@@ -4,6 +4,8 @@ src=open(sys.argv[1]).read(); out=sys.argv[2]
 meta={k:v.strip() for k,v in re.findall(r'^// (TITLE|EYEBROW|SUB|BOARD|LEAD|HOME): (.*)$',src,re.M)}
 css=open(os.path.join(base,'style.css')).read()
 eng=open(os.path.join(base,'engine.js')).read()
+av=open(os.path.join(base,'avatar.js')).read()
+eng=eng.replace('function startDrill(', av+'\nfunction startDrill(',1)
 e=html.escape
 page=f'''<!doctype html>
 <html lang="ru">

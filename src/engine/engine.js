@@ -379,7 +379,7 @@ RENDER.cards = function (d) {
   const bShuf = mk("Перемешать"), bDir = mk("Сначала русский"), bAuto = mk("Автозвук: выкл");
   tools.append(bShuf, bDir);
   if (HAS_TTS) tools.append(bAuto);
-  const flip = el("div", "flip"); flip.tabIndex = 0; flip.setAttribute("role", "button");
+  const flip = el("div", "flip" + (P.some(p => p.av) ? " has-pic" : "")); flip.tabIndex = 0; flip.setAttribute("role", "button");
   const inner = el("div", "flip-in");
   const front = el("div", "face front"), back = el("div", "face back");
   inner.append(front, back); flip.append(inner);
@@ -397,6 +397,7 @@ RENDER.cards = function (d) {
 
   const face = (node, p, en) => {
     node.innerHTML = "";
+    if (p.av && typeof avatarSVG === "function") node.append(picEl(p, "pic fc-pic"));
     if (en) {
       node.append(el("div", "fc-word", p.phrase));
       if (p.past) node.append(el("div", "fc-past", `прошедшее время: ${p.past}`));
