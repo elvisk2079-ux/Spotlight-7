@@ -187,12 +187,32 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 .listen-word { font-size: 18px; }
 .match-cols { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
 .board { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+/* Grammar additions */
+.story-head { display: flex; align-items: center; gap: 12px; margin: 4px 0 12px; padding: 10px 14px; background: var(--accent-soft); border-radius: 10px; }
+.story-head .pic { font-size: 30px; line-height: 1; letter-spacing: 2px; }
+.story-t { font-family: var(--font-display); font-weight: 400; font-size: 20px; }
+.rule { display: flex; flex-direction: column; gap: 10px; }
+.rule-b { border: 1px solid var(--line); border-left: 4px solid var(--ok); border-radius: 10px; padding: 10px 14px; background: var(--card); }
+.rule-b.warn { border-left-color: var(--bad); }
+.rule-b h4 { margin: 0 0 6px; font-size: 16px; }
+.rule-l { margin: 2px 0; display: flex; flex-wrap: wrap; column-gap: 10px; }
+.rule-en { font-weight: 600; }
+.rule-en mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+.rule-ru { color: var(--muted); font-size: 15px; }
+.why { color: var(--muted); }
+.sort-btns .opt { min-width: 9em; }
+
+[hidden] { display: none !important; }
+.home { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.fc-past { font-size: 16px; color: var(--muted); margin-top: -4px; }
+.chip .past { font-size: 12.5px; color: var(--accent); line-height: 1.3; }
 </style>
 
 <header class="hero wrap">
+  
   <p class="eyebrow">Spotlight 7 · стр. 27 · Shawn Mendes</p>
   <h1>Shawn Mendes</h1>
-  <p class="sub">18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом и девять простых заданий.</p>
+  <p class="sub">18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.</p>
 </header>
 
 <div class="bar">
@@ -220,27 +240,27 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 <script>
 // TITLE: Shawn Mendes
 // EYEBROW: Spotlight 7 · стр. 27 · Shawn Mendes
-// SUB: 18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом и девять простых заданий.
+// SUB: 18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.
 // BOARD: Твои слова
 const META = { ls: "s7-p27-shawn-mendes" };
 const P = [
   { id: "young", phrase: "young", ru: "молодой" },
   { id: "famous", phrase: "famous", ru: "знаменитый, известный" },
-  { id: "become", phrase: "become famous", ru: "стать знаменитым" },
-  { id: "upload", phrase: "upload", ru: "загружать (в интернет)" },
+  { id: "become", phrase: "become famous", ru: "стать знаменитым", past: "became famous" },
+  { id: "upload", phrase: "upload", ru: "загружать (в интернет)", past: "uploaded" },
   { id: "songs", phrase: "popular songs", ru: "популярные песни" },
-  { id: "sing", phrase: "sing – sang – sung", ru: "петь – пел – спетый" },
-  { id: "catch", phrase: "catch the attention", ru: "привлечь внимание" },
+  { id: "sing", phrase: "sing", ru: "петь", past: "sang" },
+  { id: "catch", phrase: "catch the attention", ru: "привлечь внимание", past: "caught the attention" },
   { id: "contract", phrase: "contract", ru: "контракт" },
-  { id: "give", phrase: "give – gave – given", ru: "давать – дал – данный" },
+  { id: "give", phrase: "give", ru: "давать", past: "gave" },
   { id: "quickly", phrase: "quickly", ru: "быстро" },
-  { id: "release", phrase: "release an album", ru: "выпустить альбом" },
-  { id: "top", phrase: "top the charts", ru: "возглавить хит-парады" },
+  { id: "release", phrase: "release an album", ru: "выпустить альбом", past: "released an album" },
+  { id: "top", phrase: "top the charts", ru: "возглавить хит-парады", past: "topped the charts" },
   { id: "since", phrase: "since then", ru: "с тех пор" },
-  { id: "stage", phrase: "appear on stage", ru: "выступать на сцене" },
+  { id: "stage", phrase: "appear on stage", ru: "выступать на сцене", past: "appeared on stage" },
   { id: "award", phrase: "award", ru: "награда, премия" },
   { id: "determined", phrase: "determined", ru: "целеустремлённый" },
-  { id: "succeed", phrase: "succeed", ru: "добиться успеха" },
+  { id: "succeed", phrase: "succeed", ru: "добиться успеха", past: "succeeded" },
   { id: "way", phrase: "the right way", ru: "правильным путём" }
 ];
 const DRILLS = [
@@ -273,10 +293,10 @@ const DRILLS = [
       { id: "become", q: "become famous", o: ["стать знаменитым", "выступать на сцене", "привлечь внимание", "выпустить альбом"] },
       { id: "upload", q: "upload", o: ["загружать (в интернет)", "выпускать", "петь", "давать"] },
       { id: "songs", q: "popular songs", o: ["популярные песни", "молодые певцы", "новые альбомы", "хит-парады"] },
-      { id: "sing", q: "sang", o: ["пел", "дал", "загрузил", "стал"] },
+      { id: "sing", q: "sing", o: ["петь", "давать", "загружать", "становиться"] },
       { id: "catch", q: "catch the attention", o: ["привлечь внимание", "возглавить хит-парады", "с тех пор", "добиться успеха"] },
       { id: "contract", q: "contract", o: ["контракт", "награда", "альбом", "сцена"] },
-      { id: "give", q: "gave", o: ["дал", "пел", "стал", "выиграл"] },
+      { id: "give", q: "give", o: ["давать", "петь", "становиться", "выигрывать"] },
       { id: "quickly", q: "quickly", o: ["быстро", "медленно", "молодой", "правильно"] },
       { id: "release", q: "release an album", o: ["выпустить альбом", "загрузить видео", "выиграть награду", "спеть песню"] },
       { id: "top", q: "top the charts", o: ["возглавить хит-парады", "выступать на сцене", "привлечь внимание", "стать знаменитым"] },
@@ -299,8 +319,8 @@ const DRILLS = [
       { id: "succeed", q: "добиться успеха", s: "s u c c e e d" },
       { id: "songs", q: "популярный", s: "p o p u l a r" },
       { id: "stage", q: "сцена", s: "s t a g e" },
-      { id: "sing", q: "пел", s: "s a n g" },
-      { id: "give", q: "дал", s: "g a v e" }
+      { id: "sing", q: "петь", s: "s i n g" },
+      { id: "give", q: "давать", s: "g i v e" }
     ] },
   { type: "order", title: "Собери выражение", short: "Выражения", instr: "Нажимай на слова по порядку, чтобы получилось выражение.",
     items: [
@@ -395,7 +415,9 @@ function renderBoard() {
     const n = Math.min(g, r.c);
     if (n >= g) learned++;
     const chip = el("div", "chip" + (n >= g ? " master" : r.m > r.c ? " weak" : ""));
-    chip.append(el("span", "ph", p.phrase), el("span", "ru", p.ru));
+    chip.append(el("span", "ph", p.phrase));
+    if (p.past) chip.append(el("span", "past", `прош.: ${p.past}`));
+    chip.append(el("span", "ru", p.ru));
     const dots = el("span", "dots");
     dots.setAttribute("aria-label", `${n} of ${g}`);
     for (let i = 0; i < g; i++) dots.append(el("i", i < n ? "on" : ""));
@@ -417,6 +439,12 @@ function card(num, def) {
   const score = el("span", "score");
   head.append(h3, score);
   ex.append(head, el("p", "instr", def.instr));
+  if (def.pic || def.story) {
+    const st = el("div", "story-head");
+    if (def.pic) st.append(el("span", "pic", def.pic));
+    if (def.story) st.append(el("b", "story-t", def.story));
+    ex.append(st);
+  }
   if (def.bank) {
     const bank = el("div", "bank");
     def.bank.forEach(w => bank.append(el("span", null, w)));
@@ -433,7 +461,7 @@ function card(num, def) {
   document.getElementById("nav").append(a);
   return { body, foot, score, total: 0, ok: 0, def };
 }
-const setScore = d => { d.score.textContent = `${d.ok} / ${d.total}`; d.score.classList.toggle("done", d.total > 0 && d.ok === d.total); };
+const setScore = d => { d.score.hidden = !d.total; d.score.textContent = `${d.ok} / ${d.total}`; d.score.classList.toggle("done", d.total > 0 && d.ok === d.total); };
 function resetBtn(d, build) {
   const r = el("button", "btn", "Начать заново");
   r.type = "button";
@@ -444,7 +472,7 @@ function splitId(spec, fallback) {
   const i = spec.lastIndexOf("#");
   return i > -1 ? [spec.slice(0, i), spec.slice(i + 1)] : [spec, fallback];
 }
-function options(list, correctSet, id, d, shuf) {
+function options(list, correctSet, id, d, shuf, onOk) {
   reg(id);
   const wrap = el("span", "choice");
   let done = false;
@@ -458,6 +486,7 @@ function options(list, correctSet, id, d, shuf) {
         b.classList.add("ok");
         wrap.querySelectorAll(".opt").forEach(x => { if (x !== b) { x.classList.add("dim"); x.disabled = true; } });
         d.ok++; setScore(d); hit(id, true);
+        if (onOk) onOk();
       } else {
         b.classList.add("bad", "shake");
         b.disabled = true;
@@ -546,9 +575,11 @@ const RENDER = {
       const li = el("li");
       li.append(el("p", "q", it.q));
       const box = el("div", "mcq");
-      box.append(options([...it.o], [it.o[0]], it.id, d, true));
+      const why = el("p", "fix ok"); why.hidden = true;
+      if (it.why) why.append("✓ ", it.why);
+      box.append(options([...it.o], [it.o[0]], it.id, d, true, () => { if (it.why) why.hidden = false; }));
       d.total++;
-      li.append(box);
+      li.append(box, why);
       ol.append(li);
     });
     d.body.append(ol);
@@ -594,6 +625,7 @@ const RENDER = {
           fb.innerHTML = "";
           if (it.ok) fb.append(correct ? "Да, верно." : "Это было верно.");
           else fb.append(correct ? "Да! Правильно: " : "Здесь ошибка. Правильно: ", el("b", null, it.fix));
+          if (it.why) fb.append(el("span", "why", " " + it.why));
           if (correct) { d.ok++; setScore(d); }
           hit(it.id, correct);
         });
@@ -755,6 +787,7 @@ RENDER.cards = function (d) {
     node.innerHTML = "";
     if (en) {
       node.append(el("div", "fc-word", p.phrase));
+      if (p.past) node.append(el("div", "fc-past", `прошедшее время: ${p.past}`));
       if (HAS_TTS) {
         const s = el("button", "speak", "🔊"); s.type = "button"; s.setAttribute("aria-label", "listen");
         s.addEventListener("click", e => { e.stopPropagation(); speak(sayText(p)); });
@@ -863,6 +896,57 @@ RENDER.listen = function (d) {
   d.body.append(ol);
 };
 
+/* ===== Grammar: rule sheet and sort-into-baskets ===== */
+RENDER.rule = function (d) {
+  const box = el("div", "rule");
+  d.def.blocks.forEach(bl => {
+    const b = el("div", "rule-b" + (bl.warn ? " warn" : ""));
+    b.append(el("h4", null, bl.h));
+    bl.lines.forEach(ln => {
+      const row = el("p", "rule-l");
+      if (Array.isArray(ln)) {
+        const en = el("span", "rule-en"); en.innerHTML = ln[0].replace(/\*(.+?)\*/g, "<mark>$1</mark>");
+        row.append(en);
+        if (ln[1]) row.append(el("span", "rule-ru", ln[1]));
+      } else row.append(ln);
+      b.append(row);
+    });
+    box.append(b);
+  });
+  d.body.append(box);
+  d.foot.hidden = true;
+};
+RENDER.sort = function (d) {
+  const bk = d.def.buckets;
+  const ol = el("ol", "items");
+  shuffle(d.def.items).forEach(it => {
+    d.total++; reg(it.id);
+    const li = el("li");
+    li.append(el("p", "tf-line", it.t));
+    const btns = el("div", "tf-btns sort-btns");
+    const fb = el("p", "fix"); fb.hidden = true;
+    let done = false;
+    bk.forEach((label, i) => {
+      const b = el("button", "opt", label); b.type = "button";
+      b.addEventListener("click", () => {
+        if (done || b.disabled) return;
+        if (i === it.b) {
+          done = true; b.classList.add("ok");
+          btns.querySelectorAll(".opt").forEach(x => { if (x !== b) { x.classList.add("dim"); x.disabled = true; } });
+          d.ok++; setScore(d); hit(it.id, true);
+          if (it.why) { fb.hidden = false; fb.className = "fix ok"; fb.textContent = "✓ " + it.why; }
+        } else {
+          b.classList.add("bad", "shake"); b.disabled = true; hit(it.id, false);
+          if (it.why) { fb.hidden = false; fb.className = "fix bad"; fb.textContent = "Подсказка: " + it.why; }
+        }
+      });
+      btns.append(b);
+    });
+    li.append(btns, fb); ol.append(li);
+  });
+  d.body.append(ol);
+};
+
 function startDrill(num, def) {
   const d = card(num, def);
   d.num = num;
@@ -880,7 +964,7 @@ document.getElementById("reset-all").addEventListener("click", e => {
   if (b.dataset.armed) { M = {}; save(); renderBoard(); b.textContent = "Сбросить прогресс"; delete b.dataset.armed; }
   else { b.dataset.armed = "1"; b.textContent = "Нажми ещё раз для сброса"; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = "Сбросить прогресс"; } }, 3000); }
 });
-const boardLink = el("a", null, "Слова"); boardLink.href = "#board-sec";
+const boardLink = el("a", null, META.boardLabel || "Слова"); boardLink.href = "#board-sec";
 document.getElementById("nav").append(boardLink);
 const CARDS = { type: "cards", title: "Карточки", short: "Карточки",
   instr: "Посмотри на слово и вспомни перевод. Нажми на карточку, чтобы перевернуть, 🔊 — послушать. Потом нажми «Знаю» или «Ещё раз» — эти карточки вернутся в конце." };

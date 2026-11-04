@@ -204,13 +204,15 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 
 [hidden] { display: none !important; }
 .home { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.fc-past { font-size: 16px; color: var(--muted); margin-top: -4px; }
+.chip .past { font-size: 12.5px; color: var(--accent); line-height: 1.3; }
 </style>
 
 <header class="hero wrap">
   
   <p class="eyebrow">Spotlight 7 · стр. 27 · Martin Odegaard</p>
   <h1>Martin Odegaard</h1>
-  <p class="sub">23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом и девять простых заданий.</p>
+  <p class="sub">23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.</p>
 </header>
 
 <div class="bar">
@@ -238,32 +240,32 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 <script>
 // TITLE: Martin Odegaard
 // EYEBROW: Spotlight 7 · стр. 27 · Martin Odegaard
-// SUB: 23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом и девять простых заданий.
+// SUB: 23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.
 // BOARD: Твои слова
 const META = { ls: "s7-p27-martin-odegaard" };
 const P = [
   { id: "many", phrase: "many", ru: "много, многие" },
   { id: "teen", phrase: "teenager", ru: "подросток" },
-  { id: "dreamof", phrase: "dream of", ru: "мечтать о" },
+  { id: "dreamof", phrase: "dream of", ru: "мечтать о", past: "dreamed of" },
   { id: "huge", phrase: "huge", ru: "огромный" },
   { id: "dream", phrase: "dream", ru: "мечта" },
-  { id: "reality", phrase: "become a reality", ru: "стать реальностью" },
+  { id: "reality", phrase: "become a reality", ru: "стать реальностью", past: "became a reality" },
   { id: "whose", phrase: "whose", ru: "чей, чья, чьи" },
   { id: "coach", phrase: "coach", ru: "тренер" },
   { id: "pro", phrase: "professional", ru: "профессиональный" },
   { id: "later", phrase: "later", ru: "позже" },
   { id: "when", phrase: "when", ru: "когда" },
-  { id: "takeoff", phrase: "take off – took off", ru: "взлететь – взлетел (о карьере)" },
-  { id: "join", phrase: "join", ru: "присоединиться, вступить (в клуб)" },
+  { id: "takeoff", phrase: "take off", ru: "взлететь (о карьере)", past: "took off" },
+  { id: "join", phrase: "join", ru: "присоединиться, вступить (в клуб)", past: "joined" },
   { id: "around", phrase: "around", ru: "около, примерно" },
   { id: "main", phrase: "main team", ru: "основная команда" },
   { id: "who", phrase: "who", ru: "который (о человеке), кто" },
-  { id: "train", phrase: "train", ru: "тренироваться" },
-  { id: "improve", phrase: "improve skills", ru: "улучшать навыки" },
+  { id: "train", phrase: "train", ru: "тренироваться", past: "trained" },
+  { id: "improve", phrase: "improve skills", ru: "улучшать навыки", past: "improved skills" },
   { id: "though", phrase: "though", ru: "однако, всё же" },
   { id: "sub", phrase: "substitute", ru: "запасной игрок, замена" },
   { id: "player", phrase: "player", ru: "игрок" },
-  { id: "replace", phrase: "replace", ru: "заменить" },
+  { id: "replace", phrase: "replace", ru: "заменить", past: "replaced" },
   { id: "mate", phrase: "teammate", ru: "товарищ по команде" }
 ];
 const DRILLS = [
@@ -307,7 +309,7 @@ const DRILLS = [
       { id: "pro", q: "professional", o: ["профессиональный", "огромный", "основной", "терпеливый"] },
       { id: "later", q: "later", o: ["позже", "около", "однако", "когда"] },
       { id: "when", q: "when", o: ["когда", "который", "чей", "позже"] },
-      { id: "takeoff", q: "took off", o: ["взлетел (о карьере)", "заменил", "вступил", "улучшил"] },
+      { id: "takeoff", q: "take off", o: ["взлететь (о карьере)", "заменить", "вступить", "улучшать"] },
       { id: "join", q: "join", o: ["вступить (в клуб)", "тренироваться", "заменить", "мечтать"] },
       { id: "around", q: "around", o: ["около, примерно", "позже", "однако", "много"] },
       { id: "main", q: "main team", o: ["основная команда", "огромный клуб", "товарищ по команде", "запасной игрок"] },
@@ -435,7 +437,9 @@ function renderBoard() {
     const n = Math.min(g, r.c);
     if (n >= g) learned++;
     const chip = el("div", "chip" + (n >= g ? " master" : r.m > r.c ? " weak" : ""));
-    chip.append(el("span", "ph", p.phrase), el("span", "ru", p.ru));
+    chip.append(el("span", "ph", p.phrase));
+    if (p.past) chip.append(el("span", "past", `прош.: ${p.past}`));
+    chip.append(el("span", "ru", p.ru));
     const dots = el("span", "dots");
     dots.setAttribute("aria-label", `${n} of ${g}`);
     for (let i = 0; i < g; i++) dots.append(el("i", i < n ? "on" : ""));
@@ -805,6 +809,7 @@ RENDER.cards = function (d) {
     node.innerHTML = "";
     if (en) {
       node.append(el("div", "fc-word", p.phrase));
+      if (p.past) node.append(el("div", "fc-past", `прошедшее время: ${p.past}`));
       if (HAS_TTS) {
         const s = el("button", "speak", "🔊"); s.type = "button"; s.setAttribute("aria-label", "listen");
         s.addEventListener("click", e => { e.stopPropagation(); speak(sayText(p)); });

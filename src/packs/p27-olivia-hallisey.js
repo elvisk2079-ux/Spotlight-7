@@ -1,22 +1,22 @@
 // TITLE: Olivia Hallisey
 // EYEBROW: Spotlight 7 · стр. 27 · Olivia Hallisey
-// SUB: 22 слова и выражения из текста – disaster, disease, invention, detect… Карточки с переводом и девять простых заданий.
+// SUB: 22 слова и выражения из текста – disaster, disease, invention, detect… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.
 // BOARD: Твои слова
 const META = { ls: "s7-p27-olivia-hallisey" };
 const P = [
-  { id: "hear", phrase: "hear about – heard about", ru: "услышать о – услышал о" },
+  { id: "hear", phrase: "hear about", ru: "услышать о", past: "heard about" },
   { id: "disaster", phrase: "disaster", ru: "бедствие, катастрофа" },
-  { id: "decide", phrase: "decide", ru: "решить" },
+  { id: "decide", phrase: "decide", ru: "решить", past: "decided" },
   { id: "science", phrase: "science", ru: "наука, естествознание" },
-  { id: "start", phrase: "start", ru: "начинать" },
-  { id: "research", phrase: "research", ru: "исследовать" },
+  { id: "start", phrase: "start", ru: "начинать", past: "started" },
+  { id: "research", phrase: "research", ru: "исследовать", past: "researched" },
   { id: "way", phrase: "way", ru: "способ" },
   { id: "disease", phrase: "disease", ru: "болезнь" },
   { id: "health", phrase: "health worker", ru: "медицинский работник" },
-  { id: "need", phrase: "need", ru: "нуждаться, нужно" },
-  { id: "fridge", phrase: "refrigerate", ru: "охлаждать, держать в холодильнике" },
+  { id: "need", phrase: "need", ru: "нуждаться, нужно", past: "needed" },
+  { id: "fridge", phrase: "refrigerate", ru: "охлаждать, держать в холодильнике", past: "refrigerated" },
   { id: "blood", phrase: "blood sample", ru: "образец крови" },
-  { id: "get", phrase: "get – got", ru: "получать – получил" },
+  { id: "get", phrase: "get", ru: "получать", past: "got" },
   { id: "difficult", phrase: "difficult", ru: "трудный" },
   { id: "rural", phrase: "rural", ru: "сельский" },
   { id: "where", phrase: "where", ru: "где" },
@@ -24,8 +24,8 @@ const P = [
   { id: "invention", phrase: "invention", ru: "изобретение" },
   { id: "simple", phrase: "simple", ru: "простой" },
   { id: "piece", phrase: "a piece of paper", ru: "кусочек (листок) бумаги" },
-  { id: "change", phrase: "change", ru: "менять(ся)" },
-  { id: "detect", phrase: "detect", ru: "обнаруживать" }
+  { id: "change", phrase: "change", ru: "менять(ся)", past: "changed" },
+  { id: "detect", phrase: "detect", ru: "обнаруживать", past: "detected" }
 ];
 const DRILLS = [
   { type: "match", title: "Найди пару", short: "Пары", instr: "Нажми на английское слово, потом на его перевод." },
@@ -56,7 +56,7 @@ const DRILLS = [
     ] },
   { type: "mcq", title: "Выбери перевод", short: "Англ → Рус", instr: "Прочитай английское слово и нажми на перевод.",
     items: [
-      { id: "hear", q: "heard about", o: ["услышал о", "решил", "начал", "получил"] },
+      { id: "hear", q: "hear about", o: ["услышать о", "решить", "начинать", "получать"] },
       { id: "disaster", q: "disaster", o: ["бедствие, катастрофа", "болезнь", "изобретение", "наука"] },
       { id: "decide", q: "decide", o: ["решить", "обнаруживать", "исследовать", "менять"] },
       { id: "science", q: "science", o: ["наука", "болезнь", "способ", "район"] },
@@ -68,7 +68,7 @@ const DRILLS = [
       { id: "need", q: "need", o: ["нуждаться, нужно", "получать", "начинать", "менять"] },
       { id: "fridge", q: "refrigerate", o: ["охлаждать (в холодильнике)", "исследовать", "обнаруживать", "решить"] },
       { id: "blood", q: "blood sample", o: ["образец крови", "листок бумаги", "медработник", "простой способ"] },
-      { id: "get", q: "got", o: ["получил", "услышал", "решил", "начал"] },
+      { id: "get", q: "get", o: ["получать", "услышать о", "решить", "начинать"] },
       { id: "difficult", q: "difficult", o: ["трудный", "простой", "сельский", "огромный"] },
       { id: "rural", q: "rural", o: ["сельский", "простой", "трудный", "городской"] },
       { id: "where", q: "where", o: ["где", "когда", "который", "чей"] },

@@ -1,26 +1,26 @@
 // TITLE: Shawn Mendes
 // EYEBROW: Spotlight 7 · стр. 27 · Shawn Mendes
-// SUB: 18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом и девять простых заданий.
+// SUB: 18 слов и выражений из текста – famous, upload, contract, top the charts… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.
 // BOARD: Твои слова
 const META = { ls: "s7-p27-shawn-mendes" };
 const P = [
   { id: "young", phrase: "young", ru: "молодой" },
   { id: "famous", phrase: "famous", ru: "знаменитый, известный" },
-  { id: "become", phrase: "become famous", ru: "стать знаменитым" },
-  { id: "upload", phrase: "upload", ru: "загружать (в интернет)" },
+  { id: "become", phrase: "become famous", ru: "стать знаменитым", past: "became famous" },
+  { id: "upload", phrase: "upload", ru: "загружать (в интернет)", past: "uploaded" },
   { id: "songs", phrase: "popular songs", ru: "популярные песни" },
-  { id: "sing", phrase: "sing – sang – sung", ru: "петь – пел – спетый" },
-  { id: "catch", phrase: "catch the attention", ru: "привлечь внимание" },
+  { id: "sing", phrase: "sing", ru: "петь", past: "sang" },
+  { id: "catch", phrase: "catch the attention", ru: "привлечь внимание", past: "caught the attention" },
   { id: "contract", phrase: "contract", ru: "контракт" },
-  { id: "give", phrase: "give – gave – given", ru: "давать – дал – данный" },
+  { id: "give", phrase: "give", ru: "давать", past: "gave" },
   { id: "quickly", phrase: "quickly", ru: "быстро" },
-  { id: "release", phrase: "release an album", ru: "выпустить альбом" },
-  { id: "top", phrase: "top the charts", ru: "возглавить хит-парады" },
+  { id: "release", phrase: "release an album", ru: "выпустить альбом", past: "released an album" },
+  { id: "top", phrase: "top the charts", ru: "возглавить хит-парады", past: "topped the charts" },
   { id: "since", phrase: "since then", ru: "с тех пор" },
-  { id: "stage", phrase: "appear on stage", ru: "выступать на сцене" },
+  { id: "stage", phrase: "appear on stage", ru: "выступать на сцене", past: "appeared on stage" },
   { id: "award", phrase: "award", ru: "награда, премия" },
   { id: "determined", phrase: "determined", ru: "целеустремлённый" },
-  { id: "succeed", phrase: "succeed", ru: "добиться успеха" },
+  { id: "succeed", phrase: "succeed", ru: "добиться успеха", past: "succeeded" },
   { id: "way", phrase: "the right way", ru: "правильным путём" }
 ];
 const DRILLS = [
@@ -53,10 +53,10 @@ const DRILLS = [
       { id: "become", q: "become famous", o: ["стать знаменитым", "выступать на сцене", "привлечь внимание", "выпустить альбом"] },
       { id: "upload", q: "upload", o: ["загружать (в интернет)", "выпускать", "петь", "давать"] },
       { id: "songs", q: "popular songs", o: ["популярные песни", "молодые певцы", "новые альбомы", "хит-парады"] },
-      { id: "sing", q: "sang", o: ["пел", "дал", "загрузил", "стал"] },
+      { id: "sing", q: "sing", o: ["петь", "давать", "загружать", "становиться"] },
       { id: "catch", q: "catch the attention", o: ["привлечь внимание", "возглавить хит-парады", "с тех пор", "добиться успеха"] },
       { id: "contract", q: "contract", o: ["контракт", "награда", "альбом", "сцена"] },
-      { id: "give", q: "gave", o: ["дал", "пел", "стал", "выиграл"] },
+      { id: "give", q: "give", o: ["давать", "петь", "становиться", "выигрывать"] },
       { id: "quickly", q: "quickly", o: ["быстро", "медленно", "молодой", "правильно"] },
       { id: "release", q: "release an album", o: ["выпустить альбом", "загрузить видео", "выиграть награду", "спеть песню"] },
       { id: "top", q: "top the charts", o: ["возглавить хит-парады", "выступать на сцене", "привлечь внимание", "стать знаменитым"] },
@@ -79,8 +79,8 @@ const DRILLS = [
       { id: "succeed", q: "добиться успеха", s: "s u c c e e d" },
       { id: "songs", q: "популярный", s: "p o p u l a r" },
       { id: "stage", q: "сцена", s: "s t a g e" },
-      { id: "sing", q: "пел", s: "s a n g" },
-      { id: "give", q: "дал", s: "g a v e" }
+      { id: "sing", q: "петь", s: "s i n g" },
+      { id: "give", q: "давать", s: "g i v e" }
     ] },
   { type: "order", title: "Собери выражение", short: "Выражения", instr: "Нажимай на слова по порядку, чтобы получилось выражение.",
     items: [

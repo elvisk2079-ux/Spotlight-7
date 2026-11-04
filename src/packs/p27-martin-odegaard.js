@@ -1,31 +1,31 @@
 // TITLE: Martin Odegaard
 // EYEBROW: Spotlight 7 · стр. 27 · Martin Odegaard
-// SUB: 23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом и девять простых заданий.
+// SUB: 23 слова и выражения из текста – dream of, coach, join, train, substitute, teammate… Карточки с переводом (у глаголов — и прошедшее время) и девять простых заданий.
 // BOARD: Твои слова
 const META = { ls: "s7-p27-martin-odegaard" };
 const P = [
   { id: "many", phrase: "many", ru: "много, многие" },
   { id: "teen", phrase: "teenager", ru: "подросток" },
-  { id: "dreamof", phrase: "dream of", ru: "мечтать о" },
+  { id: "dreamof", phrase: "dream of", ru: "мечтать о", past: "dreamed of" },
   { id: "huge", phrase: "huge", ru: "огромный" },
   { id: "dream", phrase: "dream", ru: "мечта" },
-  { id: "reality", phrase: "become a reality", ru: "стать реальностью" },
+  { id: "reality", phrase: "become a reality", ru: "стать реальностью", past: "became a reality" },
   { id: "whose", phrase: "whose", ru: "чей, чья, чьи" },
   { id: "coach", phrase: "coach", ru: "тренер" },
   { id: "pro", phrase: "professional", ru: "профессиональный" },
   { id: "later", phrase: "later", ru: "позже" },
   { id: "when", phrase: "when", ru: "когда" },
-  { id: "takeoff", phrase: "take off – took off", ru: "взлететь – взлетел (о карьере)" },
-  { id: "join", phrase: "join", ru: "присоединиться, вступить (в клуб)" },
+  { id: "takeoff", phrase: "take off", ru: "взлететь (о карьере)", past: "took off" },
+  { id: "join", phrase: "join", ru: "присоединиться, вступить (в клуб)", past: "joined" },
   { id: "around", phrase: "around", ru: "около, примерно" },
   { id: "main", phrase: "main team", ru: "основная команда" },
   { id: "who", phrase: "who", ru: "который (о человеке), кто" },
-  { id: "train", phrase: "train", ru: "тренироваться" },
-  { id: "improve", phrase: "improve skills", ru: "улучшать навыки" },
+  { id: "train", phrase: "train", ru: "тренироваться", past: "trained" },
+  { id: "improve", phrase: "improve skills", ru: "улучшать навыки", past: "improved skills" },
   { id: "though", phrase: "though", ru: "однако, всё же" },
   { id: "sub", phrase: "substitute", ru: "запасной игрок, замена" },
   { id: "player", phrase: "player", ru: "игрок" },
-  { id: "replace", phrase: "replace", ru: "заменить" },
+  { id: "replace", phrase: "replace", ru: "заменить", past: "replaced" },
   { id: "mate", phrase: "teammate", ru: "товарищ по команде" }
 ];
 const DRILLS = [
@@ -69,7 +69,7 @@ const DRILLS = [
       { id: "pro", q: "professional", o: ["профессиональный", "огромный", "основной", "терпеливый"] },
       { id: "later", q: "later", o: ["позже", "около", "однако", "когда"] },
       { id: "when", q: "when", o: ["когда", "который", "чей", "позже"] },
-      { id: "takeoff", q: "took off", o: ["взлетел (о карьере)", "заменил", "вступил", "улучшил"] },
+      { id: "takeoff", q: "take off", o: ["взлететь (о карьере)", "заменить", "вступить", "улучшать"] },
       { id: "join", q: "join", o: ["вступить (в клуб)", "тренироваться", "заменить", "мечтать"] },
       { id: "around", q: "around", o: ["около, примерно", "позже", "однако", "много"] },
       { id: "main", q: "main team", o: ["основная команда", "огромный клуб", "товарищ по команде", "запасной игрок"] },

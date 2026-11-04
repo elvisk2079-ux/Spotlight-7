@@ -198,3 +198,5 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 
 [hidden] { display: none !important; }
 .home { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.fc-past { font-size: 16px; color: var(--muted); margin-top: -4px; }
+.chip .past { font-size: 12.5px; color: var(--accent); line-height: 1.3; }

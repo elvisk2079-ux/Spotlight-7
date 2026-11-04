@@ -27,7 +27,9 @@ function renderBoard() {
     const n = Math.min(g, r.c);
     if (n >= g) learned++;
     const chip = el("div", "chip" + (n >= g ? " master" : r.m > r.c ? " weak" : ""));
-    chip.append(el("span", "ph", p.phrase), el("span", "ru", p.ru));
+    chip.append(el("span", "ph", p.phrase));
+    if (p.past) chip.append(el("span", "past", `прош.: ${p.past}`));
+    chip.append(el("span", "ru", p.ru));
     const dots = el("span", "dots");
     dots.setAttribute("aria-label", `${n} of ${g}`);
     for (let i = 0; i < g; i++) dots.append(el("i", i < n ? "on" : ""));
@@ -397,6 +399,7 @@ RENDER.cards = function (d) {
     node.innerHTML = "";
     if (en) {
       node.append(el("div", "fc-word", p.phrase));
+      if (p.past) node.append(el("div", "fc-past", `прошедшее время: ${p.past}`));
       if (HAS_TTS) {
         const s = el("button", "speak", "🔊"); s.type = "button"; s.setAttribute("aria-label", "listen");
         s.addEventListener("click", e => { e.stopPropagation(); speak(sayText(p)); });
