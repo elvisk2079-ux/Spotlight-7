@@ -41,13 +41,20 @@ function renderBoard() {
   document.getElementById("fill").style.width = `${(learned / P.length) * 100}%`;
 }
 
+let TASKN = 0;
 function card(num, def) {
+  if (def.part) {
+    const ph = el("div", "part");
+    ph.append(el("h2", null, def.part));
+    if (def.partSub) ph.append(el("p", null, def.partSub));
+    document.getElementById("main").append(ph);
+  }
   const sec = el("section");
   sec.id = `d${num}`;
   const ex = el("article", "ex");
   const head = el("div", "ex-head");
   const h3 = el("h3");
-  h3.append(el("span", "num", `Задание ${num}`), def.title);
+  h3.append(el("span", "num", def.type === "rule" ? "Правило" : `Задание ${++TASKN}`), def.title);
   const score = el("span", "score");
   head.append(h3, score);
   ex.append(head, el("p", "instr", def.instr));
@@ -584,3 +591,10 @@ const CARDS = { type: "cards", title: "Карточки", short: "Карточк
 (META.cards === false ? DRILLS : [CARDS, ...DRILLS]).forEach((def, i) => startDrill(i + 1, def));
 COUNTING = false;
 renderBoard();
+if (META.flow) {
+  /* one long scroll: no task chips on top, progress board at the end */
+  document.getElementById("nav").hidden = true;
+  const bs = document.getElementById("board-sec");
+  bs.parentNode.append(bs);
+  bs.classList.add("board-end");
+}

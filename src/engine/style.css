@@ -204,3 +204,7 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 .fc-pic { width: 150px; height: 200px; }
 .flip.has-pic .flip-in { min-height: 380px; }
 .q-pic { width: 120px; height: 160px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 6px; padding: 2px; }
+.part { margin: 40px 0 4px; padding: 14px 18px; border-radius: 12px; background: var(--accent); color: var(--on-accent); }
+.part h2 { margin: 0; font-size: 21px; color: var(--on-accent); }
+.part p { margin: 4px 0 0; font-size: 15px; opacity: .9; }
+.board-end { margin-top: 40px; }
