@@ -34,7 +34,7 @@ const save=()=>{try{localStorage.setItem(storeKey,JSON.stringify(saved))}catch(e
 const label=(s,cl)=>el("div",cl||"",s);
 function tabBar(){let t=document.getElementById("tabs");t.replaceChildren();PARTS.forEach((p,i)=>{let b=el("button","tab",String(i+1)+". "+p.title);b.setAttribute("role","tab");b.setAttribute("aria-selected",String(i===currentPart));b.onclick=()=>openPart(i);t.append(b)})}
 function overall(){let done=Object.keys(saved).filter(k=>saved[k]===true).length;let count=PARTS.length*types.length;document.getElementById("overall").style.width=(100*done/count)+"%";document.getElementById("overalltext").textContent="Пройдено тренировок: "+done+" / "+count+" · Прогресс сохраняется в этом браузере"}
-function openPart(i){currentPart=i;currentDrill=0;cardIndex=0;flipped=false;tabBar();draw();window.scrollTo({top:0,behavior:"smooth"})}
+function openPart(i){currentPart=i;currentDrill=0;cardIndex=0;flipped=false;newSet();tabBar();draw();window.scrollTo({top:0,behavior:"smooth"})}
 function speak(){if(!("speechSynthesis" in window)){alert("В этом браузере недоступна озвучка.");return}speechSynthesis.cancel();let utter=new SpeechSynthesisUtterance(items()[cardIndex][0]);utter.lang="en-GB";utter.rate=.85;speechSynthesis.speak(utter)}
 function cards(root){
 let sec=el("section","box");sec.append(label("🔊 Карточки с переводом","eyebrow"));sec.append(label("Нажми на карточку, чтобы открыть перевод. Озвучка работает только здесь.","tiny muted"));
