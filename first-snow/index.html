@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First Snow in the City — Spotlight 7</title>
+<style>
+:root{--paper:#f1f4f0;--card:#fff;--ink:#1b2733;--muted:#5b6977;--line:#d6dcd5;--blue:#2a55c9;--soft:#e4ebfb;--green:#1d8455;--good:#dcf1e5;--red:#bf3f2d;--bad:#f8e2dd}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:760px;margin:auto;padding:16px}h1,h2{font-family:Georgia,serif;font-weight:400}h1{font-size:clamp(30px,6vw,43px);margin:9px 0}h2{font-size:28px;margin:0}.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+a{color:var(--blue)}.home{font-size:14px;text-decoration:none;font-weight:650}.sub,.hint{color:var(--muted)}.tabs{position:sticky;top:0;z-index:3;padding:10px 0;background:var(--paper);border-bottom:1px solid var(--line);display:flex;gap:7px;overflow:auto}
+button{font:inherit;cursor:pointer}.tab,.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:9px 12px}.tab{white-space:nowrap;font-size:14px;font-weight:650}.tab[aria-selected=true],.primary{color:#fff;background:var(--blue);border-color:var(--blue)}
+button:focus-visible,input:focus-visible{outline:3px solid #8aa8ff;outline-offset:2px}
+.panel[hidden],.exercise[hidden],[hidden]{display:none!important}.box{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px;margin:16px 0}.intro{margin:18px 0}.muted{color:var(--muted)}.tiny{font-size:13px}.progress{height:8px;background:var(--line);border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:var(--green);transition:width .2s}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.fc{width:100%;max-width:540px;min-height:190px;border:1.5px solid var(--line);border-radius:16px;background:var(--soft);display:grid;place-content:center;text-align:center;gap:14px;padding:25px;margin:10px auto;font-size:clamp(23px,5vw,31px);font-weight:700}
+.fc.back{background:var(--good)}.cardhint{font-size:13px;font-weight:400;color:var(--muted)}.stat{margin-left:auto;font-size:14px;color:var(--muted)}
+.drillnav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.drillnav button{text-align:left}.drillnav .active{border-color:var(--blue);background:var(--soft)}.ex-head{display:flex;align-items:start;justify-content:space-between;gap:10px}.q{font-size:20px;font-weight:600;margin:12px 0}.choices{display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.choice{min-height:50px;overflow-wrap:anywhere;text-align:left}.correct{background:var(--good)!important;border-color:var(--green)!important;color:#154c35!important}.wrong{background:var(--bad)!important;border-color:var(--red)!important;color:#873024!important}
+input.answer{width:100%;padding:11px 12px;font:inherit;border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink)}
+.sentence{line-height:2.1;font-size:18px}.notice{padding:11px;background:var(--soft);border-radius:9px;margin-top:12px}.notice.good{background:var(--good)}.notice.bad{background:var(--bad)}
+.tags{display:flex;flex-wrap:wrap;gap:7px}.tags button{border-radius:7px}.footer{padding:35px 0;color:var(--muted);text-align:center;font-size:13px}
+@media(max-width:450px){.choices{grid-template-columns:1fr}.box{padding:14px}.tabs{gap:5px}.tab{padding:8px 9px;font-size:12px}}
+</style></head>
+<body><header class="wrap"><a class="home" href="../index.html">← Spotlight 7 Words</a><p class="eyebrow">Spotlight 7 · Extra vocabulary trainer</p><h1>❄️ The First Snow in the City</h1><p class="sub">Три части по карточке Useful Words &amp; Expressions. Карточки с переводом и озвучкой, затем много упражнений без звука. Задания можно повторять.</p></header>
+<main class="wrap"><div class="tabs" role="tablist" id="tabs"></div><div class="intro"><div class="progress"><i id="overall"></i></div><p class="tiny muted" id="overalltext"></p></div><div id="panels"></div></main><footer class="footer">© Чемоданчик учителя английского, 2026. Все права защищены.</footer>
+<script>
+const PARTS=[{"title":"Snow Words","desc":"Снег, погода и зимний город","items":[["snowflake","снежинка","A beautiful snowflake landed on her glove."],["snowfall","снегопад","The snowfall began in the afternoon."],["first snow","первый снег","The first snow surprised everyone."],["slush","снежная слякоть","The streets were covered in slush."],["frosty","морозный","It was a frosty morning."],["icy","обледенелый, скользкий","Be careful on the icy pavement."],["snow-covered","заснеженный","The snow-covered trees looked magical."],["to melt","таять","The snow began to melt by noon."]]},{"title":"Introductory Words","desc":"Связки и фразы для описания картинки","items":[["at first","сначала","At first, nobody noticed the snow."],["suddenly","внезапно","Suddenly, snowflakes began to fall."],["in the foreground","на переднем плане","In the foreground, a boy is smiling."],["in the background","на заднем плане","In the background, a tram is approaching."],["meanwhile","тем временем","Meanwhile, children are making a snowman."],["a little later","немного позже","A little later, the streets turned white."],["as evening fell","когда наступил вечер","As evening fell, the lamps came on."],["perhaps","возможно","Perhaps the snow will stay until morning."]]},{"title":"Useful Phrases","desc":"Готовые предложения для рассказа","items":[["The first snow has finally come.","Наконец-то выпал первый снег.","The first snow has finally come."],["Snowflakes are falling quietly.","Снежинки тихо падают.","Snowflakes are falling quietly."],["The city looks magical.","Город выглядит волшебно.","The city looks magical."],["People are catching snowflakes.","Люди ловят снежинки.","People are catching snowflakes."],["The streets are wet and slippery.","Улицы мокрые и скользкие.","The streets are wet and slippery."],["Children are making a snowman.","Дети лепят снеговика.","Children are making a snowman."],["Warm lights make the city feel cosy.","Тёплый свет делает город уютным.","Warm lights make the city feel cosy."]]}];
+const types=[["translate","Перевод → английский"],["reverse","English → русский"],["match","Найди пару"],["gap","Вставь слово"],["type","Напиши по-английски"],["order","Собери предложение"]];
+let currentPart=0,currentDrill=0,cardIndex=0,flipped=false,question=0,points=0,locked=false,selected=null,order=[],pool=[],queue=[];
+const storeKey="spotlight7_first_snow_v1";
+let saved={};try{saved=JSON.parse(localStorage.getItem(storeKey)||"{}")}catch(e){}
+const el=(tag,cls,text)=>{let x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x};
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+const clean=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-zа-яё0-9 ]/gi,"").replace(/\s+/g," ").trim();
+const part=()=>PARTS[currentPart],items=()=>part().items;
+const save=()=>{try{localStorage.setItem(storeKey,JSON.stringify(saved))}catch(e){}};
+const label=(s,cl)=>el("div",cl||"",s);
+function tabBar(){let t=document.getElementById("tabs");t.replaceChildren();PARTS.forEach((p,i)=>{let b=el("button","tab",String(i+1)+". "+p.title);b.setAttribute("role","tab");b.setAttribute("aria-selected",String(i===currentPart));b.onclick=()=>openPart(i);t.append(b)})}
+function overall(){let done=Object.keys(saved).filter(k=>saved[k]===true).length;let count=PARTS.length*types.length;document.getElementById("overall").style.width=(100*done/count)+"%";document.getElementById("overalltext").textContent="Пройдено тренировок: "+done+" / "+count+" · Прогресс сохраняется в этом браузере"}
+function openPart(i){currentPart=i;currentDrill=0;cardIndex=0;flipped=false;tabBar();draw();window.scrollTo({top:0,behavior:"smooth"})}
+function speak(){if(!("speechSynthesis" in window)){alert("В этом браузере недоступна озвучка.");return}speechSynthesis.cancel();let utter=new SpeechSynthesisUtterance(items()[cardIndex][0]);utter.lang="en-GB";utter.rate=.85;speechSynthesis.speak(utter)}
+function cards(root){
+let sec=el("section","box");sec.append(label("🔊 Карточки с переводом","eyebrow"));sec.append(label("Нажми на карточку, чтобы открыть перевод. Озвучка работает только здесь.","tiny muted"));
+const card=el("button","fc");function paint(){card.replaceChildren(label(items()[cardIndex][flipped?1:0]),label(flipped?"Нажми, чтобы увидеть английский":"Нажми, чтобы увидеть перевод","cardhint"));card.classList.toggle("back",flipped)}paint();card.onclick=()=>{flipped=!flipped;paint()};sec.append(card);
+let tools=el("div","toolbar");let prev=el("button","btn","←");let next=el("button","btn","→");let say=el("button","btn","🔊 Listen");let counter=el("span","stat");
+const redraw=()=>{counter.textContent=(cardIndex+1)+" / "+items().length;paint()};
+prev.onclick=()=>{cardIndex=(cardIndex+items().length-1)%items().length;flipped=false;redraw()};
+next.onclick=()=>{cardIndex=(cardIndex+1)%items().length;flipped=false;redraw()};
+say.onclick=speak;tools.append(prev,say,next,counter);sec.append(tools);redraw();root.append(sec)}
+function newSet(){pool=shuffle(items().map((x,i)=>i));question=0;points=0;locked=false;selected=null;order=[]}
+function draw(){overall();let host=document.getElementById("panels");host.replaceChildren();let p=part();let head=el("div","intro");head.append(label("PART "+(currentPart+1),"eyebrow"),label(p.title,"h2"),label(p.desc+" · "+p.items.length+" слов и выражений","muted"));host.append(head);cards(host);
+let nav=el("div","box");nav.append(label("Тренировки · 6 заданий","eyebrow"));let g=el("div","drillnav");types.forEach(([id,name],i)=>{let status=saved[currentPart+"-"+i]?" ✓":"";let b=el("button","btn"+(i===currentDrill?" active":""),(i+1)+". "+name+status);b.onclick=()=>{currentDrill=i;newSet();draw()};g.append(b)});nav.append(g);host.append(nav);let ex=el("section","box");ex.id="exercise";host.append(ex);renderExercise(ex)}
+function renderExercise(host){host.replaceChildren();let def=types[currentDrill],total=items().length;let row=el("div","ex-head");row.append(label(def[1],"q"),label((Math.min(question+1,total))+" / "+total,"stat"));host.append(row);if(question>=total){host.append(label("Результат: "+points+" / "+total,"q"));let note=label(points===total?"Отлично! Все ответы правильные.":"Можно пройти тренировку ещё раз — вопросы перемешаются.","notice");host.append(note);
+if(points===total){saved[currentPart+"-"+currentDrill]=true;save();overall()}
+let restart=el("button","btn primary","Start again");restart.onclick=()=>{newSet();draw()};host.append(restart);
+let next=el("button","btn","Следующая тренировка →");next.onclick=()=>{currentDrill=(currentDrill+1)%types.length;newSet();draw()};host.append(next);return}
+let id=pool[question],item=items()[id];locked=false;selected=null;order=[];let instruction="",target="";
+if(def[0]==="translate"){instruction="Выбери английский перевод:";target=item[1]}
+if(def[0]==="reverse"){instruction="Выбери русский перевод:";target=item[0]}
+if(def[0]==="match"){instruction="Найди пару к выражению:";target=item[0]}
+if(def[0]==="gap"){instruction="Восстанови пропущенное выражение (впиши английские слова).";target=item[2].replace(new RegExp(item[0].replace(/[.*+?^\x24{}()|[\]\\]/g,"\\$&"),"i"),"________");if(target===item[2])target=item[1]+" → ________"}
+if(def[0]==="type"){instruction="Переведи на английский:";target=item[1]}
+if(def[0]==="order"){instruction="Собери из слов правильное выражение:";target=item[1]}
+host.append(label(instruction,"hint"),label(target,"q"));
+const feedback=el("div");host.append(feedback);const area=el("div");host.append(area);const actions=el("div","toolbar");host.append(actions);
+function respond(ok,correct){if(locked)return;locked=true;if(ok)points++;feedback.className="notice "+(ok?"good":"bad");feedback.textContent=ok?"✓ Правильно!":"Не совсем. Правильный ответ: "+correct;let nxt=el("button","btn primary","Дальше →");nxt.onclick=()=>{question++;renderExercise(host)};actions.append(nxt)}
+if(["translate","reverse","match"].includes(def[0])){
+const correct=def[0]==="reverse"?item[1]:def[0]==="translate"?item[0]:item[1];
+let options=shuffle([correct,...shuffle(items().filter((x,i)=>i!==id)).slice(0,3).map(x=>def[0]==="reverse"?x[1]:def[0]==="translate"?x[0]:x[1])]);
+let g=el("div","choices");options.forEach(o=>{let b=el("button","btn choice",o);b.onclick=()=>{if(locked)return;let ok=o===correct;b.classList.add(ok?"correct":"wrong");respond(ok,correct)};g.append(b)});area.append(g)
+}else if(def[0]==="order"){
+let words=item[0].replace(/[.!?]$/,"").split(/\s+/);let tiles=shuffle(words.map((word,i)=>({word,i})));let chosen=el("div","tags");let options=el("div","tags");area.append(label("Твой ответ:","tiny muted"),chosen,label("Слова:","tiny muted"),options);
+const redraw=()=>{chosen.replaceChildren();options.replaceChildren();order.forEach((v,i)=>{let b=el("button","btn",v.word);b.onclick=()=>{if(locked)return;order.splice(i,1);redraw()};chosen.append(b)});tiles.filter(v=>!order.includes(v)).forEach(v=>{let b=el("button","btn",v.word);b.onclick=()=>{if(locked)return;order.push(v);redraw()};options.append(b)})};redraw();
+let check=el("button","btn primary","Проверить");check.onclick=()=>respond(clean(order.map(x=>x.word).join(" "))===clean(item[0]),item[0]);actions.append(check)
+}else{
+let inp=el("input","answer");inp.autocomplete="off";inp.spellcheck=false;inp.placeholder="Type your answer";inp.setAttribute("aria-label","Английский ответ");area.append(inp);
+let check=el("button","btn primary","Проверить");check.onclick=()=>{let expected=item[0];respond(clean(inp.value)===clean(expected),expected)};inp.onkeydown=e=>{if(e.key==="Enter"&&!locked)check.click()};actions.append(check)
+}
+let skip=el("button","btn","Показать ответ");skip.onclick=()=>{let correct=["reverse","match"].includes(def[0])?item[1]:item[0];respond(false,correct)};actions.append(skip)
+}
+newSet();openPart(0);
+</script></body></html>
