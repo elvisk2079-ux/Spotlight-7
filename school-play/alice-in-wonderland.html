@@ -216,7 +216,7 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
   
   <p class="eyebrow">Spotlight 7 · School Play · Alice in Wonderland</p>
   <h1>School Play · Alice in Wonderland</h1>
-  <p class="sub">28 слов и выражений из диалога Clara и Fiona. Карточки с переводом и озвучкой, затем упражнения для закрепления.</p>
+  <p class="sub">28 слов и выражений из диалога Clara и Fiona. Карточки с озвучкой, переводом и упражнения для закрепления.</p>
 </header>
 
 <div class="bar">
@@ -244,7 +244,480 @@ p.text { margin: 0 0 10px; line-height: 2.2; }
 <script>
 // TITLE: School Play · Alice in Wonderland
 // EYEBROW: Spotlight 7 · School Play · Alice in Wonderland
-// SUB: 28 слов и выражений из диалога Clara и Fiona. Карточки с переводом и озвучкой, затем упражнения для закрепления.< g; i++) dots.append(el("i", i < n ? "on" : ""));
+// SUB: 28 слов и выражений из диалога Clara и Fiona.
+// BOARD: Твои слова
+const META = { ls: "s7-school-play-alice", boardLabel: "Слова" };
+const P = [
+  {
+    "id": "play",
+    "phrase": "play",
+    "ru": "спектакль, пьеса"
+  },
+  {
+    "id": "exciting",
+    "phrase": "exciting",
+    "ru": "захватывающий"
+  },
+  {
+    "id": "invite",
+    "phrase": "invite",
+    "ru": "приглашать",
+    "past": "invited"
+  },
+  {
+    "id": "enjoy",
+    "phrase": "enjoy",
+    "ru": "получать удовольствие",
+    "past": "enjoyed"
+  },
+  {
+    "id": "everyone",
+    "phrase": "everyone",
+    "ru": "все, каждый"
+  },
+  {
+    "id": "workhard",
+    "phrase": "work hard",
+    "ru": "усердно работать",
+    "past": "worked hard"
+  },
+  {
+    "id": "stage",
+    "phrase": "stage",
+    "ru": "сцена"
+  },
+  {
+    "id": "doyouwant",
+    "phrase": "Do you want to…?",
+    "ru": "Ты хочешь…?"
+  },
+  {
+    "id": "meet",
+    "phrase": "meet",
+    "ru": "встречаться, знакомиться",
+    "past": "met"
+  },
+  {
+    "id": "but",
+    "phrase": "but",
+    "ru": "но"
+  },
+  {
+    "id": "cant",
+    "phrase": "can't",
+    "ru": "не могу"
+  },
+  {
+    "id": "tell",
+    "phrase": "tell",
+    "ru": "сказать, отличить",
+    "past": "told"
+  },
+  {
+    "id": "only",
+    "phrase": "only",
+    "ru": "только"
+  },
+  {
+    "id": "remember",
+    "phrase": "remember",
+    "ru": "помнить",
+    "past": "remembered"
+  },
+  {
+    "id": "their",
+    "phrase": "their",
+    "ru": "их"
+  },
+  {
+    "id": "let",
+    "phrase": "let",
+    "ru": "позволять",
+    "past": "let"
+  },
+  {
+    "id": "help",
+    "phrase": "help",
+    "ru": "помогать",
+    "past": "helped"
+  },
+  {
+    "id": "overthere",
+    "phrase": "over there",
+    "ru": "вон там"
+  },
+  {
+    "id": "whiterabbit",
+    "phrase": "White Rabbit",
+    "ru": "Белый Кролик"
+  },
+  {
+    "id": "funny",
+    "phrase": "funny",
+    "ru": "смешной"
+  },
+  {
+    "id": "whatabout",
+    "phrase": "What about…?",
+    "ru": "А как насчёт…?"
+  },
+  {
+    "id": "corner",
+    "phrase": "corner",
+    "ru": "угол"
+  },
+  {
+    "id": "huge",
+    "phrase": "huge",
+    "ru": "огромный"
+  },
+  {
+    "id": "nextto",
+    "phrase": "next to",
+    "ru": "рядом с"
+  },
+  {
+    "id": "cute",
+    "phrase": "cute",
+    "ru": "милый"
+  },
+  {
+    "id": "want",
+    "phrase": "want",
+    "ru": "хотеть",
+    "past": "wanted"
+  },
+  {
+    "id": "introduce",
+    "phrase": "introduce",
+    "ru": "знакомить, представлять",
+    "past": "introduced"
+  },
+  {
+    "id": "first",
+    "phrase": "first",
+    "ru": "сначала"
+  }
+];
+const DRILLS = [
+  {
+    "type": "match",
+    "title": "Найди пару",
+    "short": "Пары",
+    "instr": "Нажми на английское слово, затем на перевод."
+  },
+  {
+    "type": "ru2en",
+    "title": "Выбери английское слово",
+    "short": "Рус → Англ",
+    "instr": "Выбери английское слово по переводу."
+  },
+  {
+    "type": "en2ru",
+    "title": "Выбери перевод",
+    "short": "Англ → Рус",
+    "instr": "Выбери правильный перевод."
+  },
+  {
+    "type": "listen",
+    "title": "Послушай и выбери перевод",
+    "short": "Слушаем",
+    "instr": "Нажми 🔊, послушай слово и выбери перевод."
+  },
+  {
+    "type": "letters",
+    "title": "Собери слово из букв",
+    "short": "Буквы",
+    "instr": "Нажимай на буквы по порядку.",
+    "ids": [
+      "play",
+      "exciting",
+      "invite",
+      "enjoy",
+      "stage",
+      "meet",
+      "tell",
+      "only",
+      "remember",
+      "help",
+      "funny",
+      "corner",
+      "huge",
+      "cute",
+      "want",
+      "first"
+    ]
+  },
+  {
+    "type": "order",
+    "title": "Собери выражение",
+    "short": "Выражения",
+    "instr": "Нажимай на слова в правильном порядке.",
+    "items": [
+      {
+        "id": "invite",
+        "q": "Спасибо, что пригласили меня",
+        "s": "Thanks for inviting me"
+      },
+      {
+        "id": "workhard",
+        "q": "Все усердно работали",
+        "s": "Everyone worked hard"
+      },
+      {
+        "id": "doyouwant",
+        "q": "Ты хочешь встретиться с актёрами",
+        "s": "Do you want to meet the actors"
+      },
+      {
+        "id": "cant",
+        "q": "Я не могу отличить кто есть кто",
+        "s": "I can't tell who is who"
+      },
+      {
+        "id": "remember",
+        "q": "Я помню их только в костюмах",
+        "s": "I only remember them in their costumes"
+      },
+      {
+        "id": "let",
+        "q": "Позволь мне помочь тебе",
+        "s": "Let me help you"
+      },
+      {
+        "id": "overthere",
+        "q": "Мальчик вон там",
+        "s": "the boy over there"
+      },
+      {
+        "id": "whiterabbit",
+        "q": "Он играл Белого Кролика",
+        "s": "He played the White Rabbit"
+      },
+      {
+        "id": "whatabout",
+        "q": "А как насчёт герцогини",
+        "s": "What about the Duchess"
+      },
+      {
+        "id": "nextto",
+        "q": "Мальчик рядом с кофейным столиком",
+        "s": "the boy next to the coffee table"
+      },
+      {
+        "id": "introduce",
+        "q": "Сначала представь меня ему",
+        "s": "Introduce me to him first"
+      }
+    ]
+  },
+  {
+    "type": "gaps",
+    "title": "Вставь слово",
+    "short": "Предложения",
+    "instr": "Прочитай предложение и выбери слово.",
+    "items": [
+      {
+        "id": "play",
+        "t": "Our school {{*play|corner|rabbit}} was wonderful."
+      },
+      {
+        "id": "exciting",
+        "t": "The show was very {{*exciting|huge|first}}."
+      },
+      {
+        "id": "invite",
+        "t": "Thanks for {{*inviting|meeting|telling}} me."
+      },
+      {
+        "id": "enjoy",
+        "t": "I {{*enjoyed|invited|helped}} the play."
+      },
+      {
+        "id": "everyone",
+        "t": "{{*Everyone|Only|Their}} worked hard."
+      },
+      {
+        "id": "workhard",
+        "t": "The actors {{*worked hard|over there|first}}."
+      },
+      {
+        "id": "stage",
+        "t": "The actors performed on the {{*stage|corner|table}}."
+      },
+      {
+        "id": "doyouwant",
+        "t": "{{*Do you want to|What about|Next to}} meet the actors?"
+      },
+      {
+        "id": "meet",
+        "t": "I want to {{*meet|tell|remember}} the actors."
+      },
+      {
+        "id": "but",
+        "t": "I like the play, {{*but|only|their}} I can't remember the actors."
+      },
+      {
+        "id": "cant",
+        "t": "I {{*can't|want|let}} tell who is who."
+      },
+      {
+        "id": "tell",
+        "t": "I can't {{*tell|help|meet}} who is who."
+      },
+      {
+        "id": "only",
+        "t": "I {{*only|their|first}} remember the costumes."
+      },
+      {
+        "id": "remember",
+        "t": "I {{*remember|introduce|invite}} her costume."
+      },
+      {
+        "id": "their",
+        "t": "I remember them in {{*their|there|they're}} costumes."
+      },
+      {
+        "id": "let",
+        "t": "{{*Let|Tell|Want}} me help you."
+      },
+      {
+        "id": "help",
+        "t": "Can I {{*help|meet|enjoy}} you?"
+      },
+      {
+        "id": "overthere",
+        "t": "See the boy {{*over there|first|their}}?"
+      },
+      {
+        "id": "whiterabbit",
+        "t": "Robert played the {{*White Rabbit|Duchess|Cheshire Cat}}."
+      },
+      {
+        "id": "funny",
+        "t": "He was very {{*funny|huge|first}}."
+      },
+      {
+        "id": "whatabout",
+        "t": "{{*What about|Over there|Next to}} the Duchess?"
+      },
+      {
+        "id": "corner",
+        "t": "She's standing in the {{*corner|stage|play}}."
+      },
+      {
+        "id": "huge",
+        "t": "Her costume was {{*huge|cute|funny}}."
+      },
+      {
+        "id": "nextto",
+        "t": "The boy {{*next to|over there|first}} the coffee table is Matt."
+      },
+      {
+        "id": "cute",
+        "t": "He's so {{*cute|huge|only}}!"
+      },
+      {
+        "id": "want",
+        "t": "I {{*want|tell|only}} you to meet him."
+      },
+      {
+        "id": "introduce",
+        "t": "Please {{*introduce|remember|invite}} me to him."
+      },
+      {
+        "id": "first",
+        "t": "Introduce me to him {{*first|their|only}}."
+      }
+    ]
+  },
+  {
+    "type": "gaps",
+    "title": "Вторая форма глагола",
+    "short": "Глаголы",
+    "instr": "Выбери правильную форму Past Simple.",
+    "items": [
+      {
+        "id": "invite",
+        "t": "invite → {{*invited|inviting|invite}"
+      },
+      {
+        "id": "enjoy",
+        "t": "enjoy → {{*enjoyed|enjoyt|enjoy}"
+      },
+      {
+        "id": "meet",
+        "t": "meet → {{*met|meeted|meet}"
+      },
+      {
+        "id": "tell",
+        "t": "tell → {{*told|telled|tell}"
+      },
+      {
+        "id": "remember",
+        "t": "remember → {{*remembered|remembert|remember}"
+      },
+      {
+        "id": "let",
+        "t": "let → {{*let|letted|lets}"
+      },
+      {
+        "id": "help",
+        "t": "help → {{*helped|helpt|help}"
+      },
+      {
+        "id": "want",
+        "t": "want → {{*wanted|wantt|want}"
+      },
+      {
+        "id": "introduce",
+        "t": "introduce → {{*introduced|introducet|introduce}"
+      }
+    ]
+  },
+  {
+    "type": "write",
+    "title": "Напиши по-английски",
+    "short": "Пишем",
+    "instr": "Напиши английское слово или выражение."
+  }
+];
+
+/* ===== Drill engine (shared). Expects META, P, DRILLS defined before this script. ===== */
+const byId = Object.fromEntries(P.map(p => [p.id, p]));
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const norm = s => (s || "").toLowerCase().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().replace(/[.!?,;:]+$/, "");
+
+let M = {};
+try { M = JSON.parse(localStorage.getItem(META.ls) || "{}") || {}; } catch (e) { M = {}; }
+const save = () => { try { localStorage.setItem(META.ls, JSON.stringify(M)); } catch (e) {} };
+const COUNT = {};
+let COUNTING = true;
+const reg = id => { if (COUNTING && id && byId[id]) COUNT[id] = (COUNT[id] || 0) + 1; };
+const goal = id => Math.max(1, Math.min(5, COUNT[id] || 5));
+function hit(id, ok) {
+  if (!id || !byId[id]) return;
+  const r = M[id] || (M[id] = { c: 0, m: 0 });
+  if (ok) r.c++; else r.m++;
+  save(); renderBoard();
+}
+function renderBoard() {
+  const b = document.getElementById("board");
+  b.innerHTML = "";
+  let learned = 0;
+  P.forEach(p => {
+    const r = M[p.id] || { c: 0, m: 0 };
+    const g = goal(p.id);
+    const n = Math.min(g, r.c);
+    if (n >= g) learned++;
+    const chip = el("div", "chip" + (n >= g ? " master" : r.m > r.c ? " weak" : ""));
+    chip.append(el("span", "ph", p.phrase));
+    if (p.past) chip.append(el("span", "past", `прош.: ${p.past}`));
+    chip.append(el("span", "ru", p.ru));
+    const dots = el("span", "dots");
+    dots.setAttribute("aria-label", `${n} of ${g}`);
+    for (let i = 0; i < g; i++) dots.append(el("i", i < n ? "on" : ""));
     chip.append(dots);
     b.append(chip);
   });
@@ -892,3 +1365,5 @@ COUNTING = false;
 renderBoard();
 
 </script>
+</body>
+</html>
